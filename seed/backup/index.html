@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bitcoin Padawans - Seed Backup</title>
+
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 12mm;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fafafa;
+        }
+
+        .page {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .seed {
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .seed:first-child {
+            border-right: 2px dashed #999;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btc {
+            width: 36px;
+        }
+
+        .project {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #555;
+        }
+
+        .wallet-type {
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        .wallet-type label {
+            margin-right: 12px;
+        }
+
+        .warning {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-top: 10px;
+            background: #fff4f4;
+            padding: 8px;
+            border-left: 4px solid #c33;
+            font-size: 12px;
+        }
+
+        .grid {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 25px;
+        }
+
+        .word {
+            display: flex;
+            align-items: center;
+        }
+
+        .num {
+            width: 22px;
+            font-weight: bold;
+        }
+
+        .line {
+            flex: 1;
+            border-bottom: 1px solid black;
+            height: 20px;
+        }
+
+        .footer {
+            margin-top: 15px;
+            font-size: 12px;
+        }
+
+        .brand {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+        }
+
+        .support {
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .print {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 14px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        @media print {
+            .print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="print" onclick="window.print()">Imprimir</button>
+
+    <div class="page">
+
+        <!-- CARD 1 -->
+
+        <div class="seed">
+
+            <div class="header">
+
+                <img class="btc" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg">
+
+                <div>
+                    <div class="project">Bitcoin Padawans</div>
+                    <div class="subtitle">Backup de carteira Bitcoin</div>
+                </div>
+
+            </div>
+
+            <div class="wallet-type">
+
+                <strong>Tipo de carteira:</strong><br>
+
+                <label><input type="radio" name="wallet-type-1"> Electrum (On-chain)</label>
+                <label><input type="radio" name="wallet-type-1"> Phoenix (Lightning)</label>
+                <label><input type="radio" name="wallet-type-1"> Blockstream Green Liquid</label>
+
+            </div>
+
+            <div class="warning">
+
+                <span>⚠ Nunca fotografe sua seed</span>
+                <span></span>⚠ Nunca envie para ninguém</span>
+                <span>⚠ Quem possui essas palavras controla seus bitcoins</span>
+
+            </div>
+
+            <div class="grid">
+
+                <div class="word">
+                    <div class="num">1.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">2.</div>
+                    <div class="line"></div>
+                </div>
+
+                <div class="word">
+                    <div class="num">3.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">4.</div>
+                    <div class="line"></div>
+                </div>
+
+                <div class="word">
+                    <div class="num">5.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">6.</div>
+                    <div class="line"></div>
+                </div>
+
+                <div class="word">
+                    <div class="num">7.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">8.</div>
+                    <div class="line"></div>
+                </div>
+
+                <div class="word">
+                    <div class="num">9.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">10.</div>
+                    <div class="line"></div>
+                </div>
+
+                <div class="word">
+                    <div class="num">11.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">12.</div>
+                    <div class="line"></div>
+                </div>
+
+            </div>
+
+            <div class="footer">
+
+                Wallet: ___________________________<br>
+                Data: ____ / ____ / ______
+
+            </div>
+
+            <div class="brand">
+
+                <div>
+                    Projeto: <strong>Bitcoin Padawans</strong><br>
+                    Proponente: Rainan Miranda de Jesus
+                </div>
+
+                <div class="support">
+                    Apoio:
+                    <img class="logo" src="https://avatars.githubusercontent.com/u/169398236?v=4">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARD 2 -->
+
+        <div class="seed">
+
+            <div class="header">
+
+                <img class="btc" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg">
+
+                <div>
+                    <div class="project">Bitcoin Padawans</div>
+                    <div class="subtitle">Backup de carteira Bitcoin</div>
+                </div>
+
+            </div>
+
+            <div class="wallet-type">
+
+                <strong>Tipo de carteira:</strong><br>
+
+                <label><input type="radio" name="wallet-type-2"> Electrum (On-chain)</label>
+                <label><input type="radio" name="wallet-type-2"> Phoenix (Lightning)</label>
+                <label><input type="radio" name="wallet-type-2"> Blockstream Green Liquid</label>
+
+            </div>
+
+            <div class="warning">
+
+                <span>⚠ Nunca fotografe sua seed</span>
+                <span>⚠ Nunca envie para ninguém</span>
+                <span>⚠ Quem possui essas palavras controla seus bitcoins</span>
+
+            </div>
+
+            <div class="grid">
+
+                <div class="word">
+                    <div class="num">1.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">2.</div>
+                    <div class="line"></div>
+                </div>
+
+                <div class="word">
+                    <div class="num">3.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">4.</div>
+                    <div class="line"></div>
+                </div>
+
+                <div class="word">
+                    <div class="num">5.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">6.</div>
+                    <div class="line"></div>
+                </div>
+
+                <div class="word">
+                    <div class="num">7.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">8.</div>
+                    <div class="line"></div>
+                </div>
+
+                <div class="word">
+                    <div class="num">9.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">10.</div>
+                    <div class="line"></div>
+                </div>
+
+                <div class="word">
+                    <div class="num">11.</div>
+                    <div class="line"></div>
+                </div>
+                <div class="word">
+                    <div class="num">12.</div>
+                    <div class="line"></div>
+                </div>
+
+            </div>
+
+            <div class="footer">
+
+                Wallet: ___________________________<br>
+                Data: ____ / ____ / ______
+
+            </div>
+
+            <div class="brand">
+
+                <div>
+                    Projeto: <strong>Bitcoin Padawans</strong><br>
+                    Proponente: Rainan Miranda de Jesus
+                </div>
+
+                <div class="support">
+                    Apoio:
+                    <img class="logo" src="https://avatars.githubusercontent.com/u/169398236?v=4">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

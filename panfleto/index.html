@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bitcoin Padawans - Gerar Panfleto</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #0f172a, #020617);
+      color: #e5e7eb;
+      padding: 24px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 18px;
+      padding: 24px 22px 20px;
+      box-shadow:
+        0 18px 60px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(148, 163, 184, 0.18);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      backdrop-filter: blur(18px);
+    }
+
+    .page-title {
+      font-size: 24px;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 18px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1.1fr 1.1fr;
+      gap: 16px 20px;
+      align-items: flex-start;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      color: #e5e7eb;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select,
+    textarea {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 10px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      padding: 8px 10px;
+      color: #e5e7eb;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
+    }
+
+    .checkbox-row,
+    .radio-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 14px;
+      font-size: 13px;
+    }
+
+    .checkbox-row input,
+    .radio-row input {
+      accent-color: #38bdf8;
+    }
+
+    .recurrent-options {
+      display: none;
+      margin-top: 4px;
+      padding-left: 4px;
+    }
+
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .color-row input[type="color"] {
+      width: 38px;
+      height: 26px;
+      padding: 0;
+      border-radius: 8px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: #020617;
+    }
+
+    .actions {
+      margin-top: 8px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    button,
+    .outline-button {
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button[type="submit"] {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: white;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      box-shadow: 0 12px 30px rgba(22, 163, 74, 0.45);
+    }
+
+    button[type="submit"]:hover {
+      filter: brightness(1.03);
+    }
+
+    .outline-button {
+      background: transparent;
+      color: #e5e7eb;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .outline-button:hover {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .print-layout-hint {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    .flyer-support {
+      margin-top: 14px;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #9ca3af;
+    }
+
+    .flyer-support .support {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flyer-support .logo {
+      height: 32px;
+    }
+
+    .page-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .page-logo-text {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #9ca3af;
+    }
+
+    .flyer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .flyer-actions h2 {
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .flyer-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .flyer-pages {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    .flyer-pages.two-up .flyer-page {
+      width: 50%;
+      max-width: 50%;
+    }
+
+    .flyer-pages.two-up .flyer-page:first-child {
+      border-right: 2px dashed rgba(15, 23, 42, 0.9);
+    }
+
+    .flyer-page {
+      width: 100%;
+      aspect-ratio: 1 / 1.414;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .flyer-inner {
+      text-align: center;
+      max-width: 80%;
+    }
+
+    .flyer-event-type {
+      text-transform: uppercase;
+      letter-spacing: 0.26em;
+      font-size: 13px;
+      margin-bottom: 10px;
+      opacity: 0.85;
+    }
+
+    .flyer-main-title {
+      font-size: 30px;
+      letter-spacing: -0.04em;
+      margin-bottom: 14px;
+    }
+
+    .flyer-subtitle {
+      font-size: 15px;
+      margin-bottom: 18px;
+      opacity: 0.9;
+    }
+
+    .flyer-info {
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 4px;
+    }
+
+    .flyer-note {
+      font-size: 12px;
+      margin-top: 8px;
+      opacity: 0.8;
+    }
+
+    .flyer-brand-row {
+      position: absolute;
+      bottom: 18px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    .flyer-brand-row .support {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flyer-brand-row .logo {
+      height: 32px;
+    }
+
+    .flyer-watermark {
+      position: absolute;
+      right: -40px;
+      top: 40%;
+      transform: rotate(-90deg);
+      font-size: 40px;
+      font-weight: 700;
+      opacity: 0.05;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 16px;
+      }
+
+      .card {
+        padding: 18px 16px 16px;
+      }
+
+      form {
+        grid-template-columns: 1fr;
+      }
+
+      .flyer-main-title {
+        font-size: 24px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white !important;
+        padding: 0;
+      }
+
+      .container,
+      .card,
+      .flyer-wrapper {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+
+      .card,
+      .container {
+        padding: 0;
+        margin: 0;
+      }
+
+      .flyer-actions {
+        display: none !important;
+      }
+
+      .flyer-wrapper {
+        max-width: 100%;
+        width: 100%;
+        height: 100vh;
+      }
+
+      .flyer-pages {
+        width: 100%;
+        height: 100%;
+      }
+
+      .flyer-pages.two-up .flyer-page {
+        width: 50%;
+        max-width: 50%;
+        height: 100%;
+        aspect-ratio: auto;
+        padding: 20px;
+      }
+
+      .flyer-page {
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script>
+    function getParams() {
+      const params = new URLSearchParams(window.location.search);
+      if ([...params.keys()].length === 0) return null;
+      return {
+        tipo: params.get('tipo') || '',
+        local: params.get('local') || '',
+        endereco: params.get('endereco') || '',
+        cidade: params.get('cidade') || '',
+        data: params.get('data') || '',
+        recorrente: params.get('recorrente') === 'on',
+        frequencia: params.get('frequencia') || '',
+        layout: params.get('layout') || 'a4_single',
+        bg: params.get('bg') || '#ffffff'
+      };
+    }
+
+    function renderForm(container) {
+      container.innerHTML = `
+        <div class="container">
+          <div class="card">
+            <div class="page-logo">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg" alt="Bitcoin Logo" class="btc-logo">
+              <span class="page-logo-text">Bitcoin Padawans</span>
+            </div>
+            <h1 class="page-title">Gerar panfleto Bitcoin Padawans</h1>
+            <p class="subtitle">
+              Preencha as informações do evento e escolha o tipo de impressão. Ao enviar, a página será recarregada com o panfleto pronto para impressão.
+            </p>
+            <form method="get">
+              <div class="form-group">
+                <label for="tipo">Tipo de evento</label>
+                <select id="tipo" name="tipo" required>
+                  <option value="">Selecione...</option>
+                  <option value="mesa_aberta">Mesa aberta</option>
+                  <option value="evento">Evento</option>
+                  <option value="curso">Inscrição de curso</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="data">Data</label>
+                <input type="date" id="data" name="data" />
+                <span class="hint">Se for algo mais livre, você pode deixar em branco.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="local">Local / nome do espaço</label>
+                <input type="text" id="local" name="local" placeholder="Ex.: Espaço Comunitário Bairro X" />
+              </div>
+
+              <div class="form-group">
+                <label for="cidade">Cidade / bairro</label>
+                <input type="text" id="cidade" name="cidade" placeholder="Ex.: Fortaleza - CE" />
+              </div>
+
+              <div class="form-group full-width">
+                <label for="endereco">Endereço / observações</label>
+                <textarea id="endereco" name="endereco" placeholder="Rua, número, ponto de referência, horário, observações importantes..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Recorrência</label>
+                <div class="checkbox-row">
+                  <label>
+                    <input type="checkbox" id="recorrente" name="recorrente" />
+                    Evento recorrente
+                  </label>
+                </div>
+                <div class="recurrent-options" id="recurrent-options">
+                  <div class="radio-row">
+                    <label><input type="radio" name="frequencia" value="semanal" /> Semanal</label>
+                    <label><input type="radio" name="frequencia" value="mensal" /> Mensal</label>
+                    <label><input type="radio" name="frequencia" value="semestral" /> Semestral</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Layout de impressão</label>
+                <div class="radio-row">
+                  <label><input type="radio" name="layout" value="a4_single" checked /> A4 - página única</label>
+                  <label><input type="radio" name="layout" value="a4_2up" /> A4 - 2 por página (retrato)</label>
+                </div>
+                <p class="print-layout-hint">
+                  A opção "2 por página" é ideal para panfletos pequenos recortados após a impressão.
+                </p>
+              </div>
+
+              <div class="form-group">
+                <label>Cores do panfleto</label>
+                <div class="color-row">
+                  <span class="hint">Fundo:</span>
+                  <input type="color" name="bg" value="#ffffff" />
+                  <span class="hint">A cor do texto é ajustada automaticamente para manter boa leitura.</span>
+                </div>
+              </div>
+
+              <div class="actions full-width">
+                <a href="../" class="outline-button">Voltar</a>
+                <button type="submit">Gerar panfleto</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+
+      const recurrentCheckbox = document.getElementById('recorrente');
+      const recurrentOptions = document.getElementById('recurrent-options');
+      recurrentCheckbox.addEventListener('change', () => {
+        recurrentOptions.style.display = recurrentCheckbox.checked ? 'block' : 'none';
+      });
+    }
+
+    function humanizeTipo(tipo) {
+      switch (tipo) {
+        case 'mesa_aberta':
+          return 'Mesa aberta sobre Bitcoin';
+        case 'evento':
+          return 'Evento Bitcoin';
+        case 'curso':
+          return 'Inscrições para curso de Bitcoin';
+        default:
+          return 'Encontro Bitcoin';
+      }
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr + 'T00:00:00');
+      if (isNaN(d.getTime())) return dateStr;
+      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    }
+
+    function weekdayPt(dateStr) {
+      const d = new Date(dateStr + 'T00:00:00');
+      if (isNaN(d.getTime())) return '';
+      const nomes = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+      return nomes[d.getDay()];
+    }
+
+    function hexToRgb(hex) {
+      if (!hex) return null;
+      let h = hex.replace('#', '');
+      if (h.length === 3) {
+        h = h.split('').map(c => c + c).join('');
+      }
+      if (h.length !== 6) return null;
+      const num = parseInt(h, 16);
+      if (Number.isNaN(num)) return null;
+      return {
+        r: (num >> 16) & 255,
+        g: (num >> 8) & 255,
+        b: num & 255
+      };
+    }
+
+    function autoTextColor(bg) {
+      const rgb = hexToRgb(bg);
+      if (!rgb) return '#000000';
+      const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+      return brightness < 140 ? '#ffffff' : '#000000';
+    }
+
+    function clampChannel(value) {
+      return Math.max(0, Math.min(255, Math.round(value)));
+    }
+
+    function rgbToHex(r, g, b) {
+      const toHex = (v) => {
+        const h = clampChannel(v).toString(16);
+        return h.length === 1 ? '0' + h : h;
+      };
+      return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+    }
+
+    function adjustBrightness(hex, factor) {
+      const rgb = hexToRgb(hex);
+      if (!rgb) return hex;
+      return rgbToHex(rgb.r * factor, rgb.g * factor, rgb.b * factor);
+    }
+
+    function renderFlyer(container, params) {
+      const descricaoTipo = humanizeTipo(params.tipo);
+      const dataFormatada = formatDate(params.data);
+
+      let dataLinha = dataFormatada ? `Data: ${dataFormatada}` : '';
+      let recorrenciaLinha = '';
+
+      if (params.recorrente) {
+        const freq = params.frequencia;
+
+        if (freq === 'semanal' && dataFormatada) {
+          const diaSemana = weekdayPt(params.data);
+          if (diaSemana) {
+            recorrenciaLinha = `Encontros toda ${diaSemana}, começando em ${dataFormatada}.`;
+            dataLinha = '';
+          }
+        } else if (freq === 'mensal' && dataFormatada) {
+          const d = new Date(params.data + 'T00:00:00');
+          const dia = isNaN(d.getTime()) ? '' : d.getDate();
+          if (dia) {
+            recorrenciaLinha = `Encontros todo dia ${dia} de cada mês, começando em ${dataFormatada}.`;
+            dataLinha = '';
+          }
+        } else if (freq === 'semestral' && dataFormatada) {
+          recorrenciaLinha = `Encontros a cada semestre, começando em ${dataFormatada}.`;
+          dataLinha = '';
+        }
+      }
+
+      const cidadeLinha = params.cidade
+        ? params.cidade
+        : '';
+
+      const enderecoLinha = params.endereco
+        ? params.endereco
+        : '';
+
+      const infoBlocos = [dataLinha, cidadeLinha, enderecoLinha].filter(Boolean);
+
+      const baseBg = (params.bg || '#ffffff').toLowerCase();
+      const isPlain = baseBg === '#ffffff' || baseBg === '#000000';
+      const topColor = isPlain ? baseBg : adjustBrightness(baseBg, 1.40);
+      const bottomColor = isPlain ? baseBg : adjustBrightness(baseBg, 0.60);
+      const textColor = autoTextColor(baseBg);
+
+      const flyerHTML = `
+          <div class="flyer-page" style="background: linear-gradient(to bottom, ${topColor}, ${bottomColor}); color:${textColor};">
+            <div class="flyer-inner">
+              <div class="page-logo" style="justify-content:center; margin-bottom:14px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg" alt="Bitcoin Logo" class="btc-logo">
+              </div>
+              <div class="flyer-event-type">${descricaoTipo}</div>
+              <div class="flyer-main-title">
+                ${params.local ? params.local : 'Aprenda Bitcoin na prática'}
+              </div>
+              <div class="flyer-subtitle">
+                Um encontro para tirar dúvidas, aprender o básico e dar os primeiros passos com Bitcoin de forma segura.
+              </div>
+
+              ${infoBlocos.length
+          ? `<div class="flyer-info">
+                    ${infoBlocos.join('<br />')}
+                   </div>`
+          : ''
+        }
+
+              ${recorrenciaLinha
+          ? `<div class="flyer-note">${recorrenciaLinha}</div>`
+          : ''
+        }
+
+              <div class="flyer-note">
+                Traga apenas seu celular: vamos te ajudar a configurar uma carteira e entender como o Bitcoin funciona no mundo real.
+              </div>
+            </div>
+
+            <div class="flyer-brand-row">
+              <div>
+                Projeto: <strong>Bitcoin Padawans</strong><br />
+                Proponente: Rainan Miranda de Jesus
+              </div>
+              <div class="support">
+                Apoio:
+                <img class="logo" src="https://avatars.githubusercontent.com/u/169398236?v=4" alt="Apoio">
+              </div>
+            </div>
+            <div class="flyer-watermark">BITCOIN</div>
+          </div>`;
+
+      const pagesClass = params.layout === 'a4_2up' ? 'flyer-pages two-up' : 'flyer-pages';
+
+      container.innerHTML = `
+        <div class="flyer-wrapper">
+          <div class="flyer-actions">
+            <div>
+              <h2>Prévia do panfleto</h2>
+              <p class="subtitle" style="margin-bottom:0;">
+                Utilize o botão "Imprimir" do navegador após ajustar margens para preencher bem a folha A4.
+              </p>
+            </div>
+            <div class="actions">
+              <a href="./" class="outline-button">Novo panfleto</a>
+              <button type="button" onclick="window.print()">Imprimir</button>
+            </div>
+          </div>
+
+          <div class="${pagesClass}">
+            ${params.layout === 'a4_2up' ? flyerHTML + flyerHTML : flyerHTML}
+          </div>
+        </div>
+      `;
+    }
+
+    (function init() {
+      const root = document.getElementById('app');
+      const params = getParams();
+      if (!params) {
+        renderForm(root);
+      } else {
+        renderFlyer(root, params);
+      }
+    })();
+  </script>
+</body>
+
+</html>
