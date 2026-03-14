@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerar Cartaz Bitcoin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #F7931A;
+      --bg: #111318;
+      --surface: #1a1d24;
+      --surface2: #21252e;
+      --border: #2e333d;
+      --text: #e8eaf0;
+      --text-muted: #7a7f8e;
+      --text-dim: #4e535f;
+      --red: #e05252;
+      --green: #3ecf73;
+      --green-btn: #22c55e;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      padding: 1.1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .topbar-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .topbar-name {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .page {
+      flex: 1;
+      padding: 2.5rem 2rem 4rem;
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      animation: fadeUp .4s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .35rem;
+    }
+
+    .page-desc {
+      font-size: .85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 2.2rem;
+      max-width: 680px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .form-row.single {
+      grid-template-columns: 1fr;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: .45rem;
+    }
+
+    label {
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input[type="tel"] {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .7rem 2.4rem .7rem .9rem;
+      font-family: 'Inter', sans-serif;
+      font-size: .95rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color .18s, box-shadow .18s;
+    }
+
+    input[type="tel"]::placeholder {
+      color: var(--text-dim);
+    }
+
+    input[type="tel"]:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(247, 147, 26, .12);
+    }
+
+    input[type="tel"].valid {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(62, 207, 115, .1);
+    }
+
+    input[type="tel"].invalid {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(224, 82, 82, .1);
+    }
+
+    .status-icon {
+      position: absolute;
+      right: .75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: .85rem;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity .18s;
+      pointer-events: none;
+    }
+
+    .status-icon.show {
+      opacity: 1;
+    }
+
+    .field-hint {
+      font-size: .75rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .field-error {
+      font-size: .75rem;
+      color: var(--red);
+      min-height: 1.1em;
+      display: block;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: .6rem 0 1.8rem;
+    }
+
+    .form-footer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: .8rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .btn {
+      padding: .6rem 1.4rem;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background .18s, opacity .18s, transform .1s;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      background: var(--surface2);
+      color: var(--text);
+    }
+
+    .btn-primary {
+      background: var(--green-btn);
+      color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #16a34a;
+    }
+
+    .btn-primary:active:not(:disabled) {
+      transform: scale(.97);
+    }
+
+    .btn-primary:disabled {
+      background: var(--surface2);
+      color: var(--text-dim);
+      cursor: not-allowed;
+    }
+
+    .preview-box {
+      display: none;
+      margin-top: 1.6rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 6px;
+      padding: .85rem 1rem;
+    }
+
+    .preview-box.show {
+      display: block;
+    }
+
+    .preview-label {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: .4rem;
+    }
+
+    .preview-url {
+      font-size: .8rem;
+      color: var(--text-muted);
+      word-break: break-all;
+      line-height: 1.7;
+    }
+
+    .preview-url strong {
+      color: var(--orange);
+      font-weight: 600;
+    }
+
+    @media (max-width: 560px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .topbar {
+        padding: 1rem 1.2rem;
+      }
+      .page {
+        padding: 1.8rem 1.2rem 3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="topbar-logo">₿</div>
+    <span class="topbar-name">Bitcoin Padawans</span>
+  </header>
+
+  <main class="page">
+    <h1 class="page-title">Gerar cartaz de consultoria</h1>
+    <p class="page-desc">
+      Preencha o número de WhatsApp para o cartaz. Ao enviar, a página será redirecionada
+      com o cartaz pronto para impressão.
+    </p>
+
+    <form id="tel-form" action="./result/" method="GET" novalidate>
+
+      <div class="form-row single">
+        <div class="field">
+          <label for="tel">Número de WhatsApp</label>
+          <div class="input-wrap">
+            <input type="tel" id="tel" name="tel" placeholder="(71) 98457-1242" maxlength="15" autocomplete="tel" />
+            <span class="status-icon" id="status-icon"></span>
+          </div>
+          <span class="field-error" id="error-msg"></span>
+          <p class="field-hint">Formato aceito: (XX) 9XXXX-XXXX ou somente dígitos</p>
+        </div>
+      </div>
+
+      <div class="preview-box" id="preview-box">
+        <p class="preview-label">URL que será gerada</p>
+        <p class="preview-url" id="preview-url"></p>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="form-footer">
+        <button type="button" class="btn btn-ghost" onclick="history.back()">Voltar</button>
+        <button type="submit" class="btn btn-primary" id="submit-btn" disabled>
+          Gerar cartaz
+        </button>
+      </div>
+
+    </form>
+  </main>
+
+  <script>
+    const input = document.getElementById('tel');
+    const errorMsg = document.getElementById('error-msg');
+    const statusIcon = document.getElementById('status-icon');
+    const submitBtn = document.getElementById('submit-btn');
+    const previewBox = document.getElementById('preview-box');
+    const previewUrl = document.getElementById('preview-url');
+    const form = document.getElementById('tel-form');
+
+    input.addEventListener('input', () => {
+      let v = input.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.slice(0, 11);
+      if (v.length <= 2) input.value = v.length ? `(${v}` : '';
+      else if (v.length <= 7) input.value = `(${v.slice(0, 2)}) ${v.slice(2)}`;
+      else input.value = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+      validate();
+    });
+
+    input.addEventListener('blur', () => { if (input.value.trim()) validate(); });
+
+    function digits() { return input.value.replace(/\D/g, ''); }
+
+    function validate() {
+      const d = digits();
+      if (!input.value.trim()) { neutral(); return false; }
+      if (d.length < 10) return err('Número muito curto. Mínimo 10 dígitos.');
+      if (d.length > 11) return err('Número muito longo. Máximo 11 dígitos.');
+      if (d.length === 11 && d[2] !== '9') return err('Celular deve começar com 9 após o DDD.');
+      const ddd = parseInt(d.slice(0, 2), 10);
+      if (ddd < 11 || ddd > 99) return err('DDD inválido.');
+      ok(); return true;
+    }
+
+    function ok() {
+      input.className = 'valid';
+      statusIcon.textContent = '✓'; statusIcon.style.color = 'var(--green)';
+      statusIcon.classList.add('show');
+      errorMsg.textContent = '';
+      submitBtn.disabled = false;
+      previewUrl.innerHTML = `${window.location}result/?tel=<strong>${encodeURIComponent(digits())}</strong>`;
+      previewBox.classList.add('show');
+    }
+
+    function err(msg) {
+      input.className = 'invalid';
+      statusIcon.textContent = '✕'; statusIcon.style.color = 'var(--red)';
+      statusIcon.classList.add('show');
+      errorMsg.textContent = msg;
+      submitBtn.disabled = true;
+      previewBox.classList.remove('show');
+      return false;
+    }
+
+    function neutral() {
+      input.className = '';
+      statusIcon.classList.remove('show');
+      errorMsg.textContent = '';
+      submitBtn.disabled = true;
+      previewBox.classList.remove('show');
+    }
+
+    form.addEventListener('submit', e => {
+      if (!validate()) { e.preventDefault(); return; }
+      input.value = digits();
+    });
+  </script>
+
+</body>
+
+</html>
